@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Assignment 3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Undo/redo editor</h1>
+  <p class="lead">Every edit pushes the old text onto the undo stack. Undo and redo move text between two stacks, last in, first out.</p>
+
+  <section class="panel" aria-label="Editor">
+    <p class="doc-label">Document</p>
+    <div id="doc" aria-live="polite"></div>
+    <div class="row">
+      <input id="inp" type="text" placeholder="Type a word or sentence" aria-label="Text to add" autocomplete="off">
+      <button id="add" class="primary">Add text</button>
+    </div>
+    <div class="row actions">
+      <button id="del">Delete last word</button>
+      <button id="undo" class="u">Undo</button>
+      <button id="redo" class="r">Redo</button>
+    </div>
+  </section>
+
+  <p id="log" role="status">Add some text to start. Each edit is saved on the undo stack.</p>
+
+  <section class="stacks" aria-label="Stacks">
+    <div class="stack undo panel">
+      <h2>Undo stack <span id="uc"></span></h2>
+      <p class="sub">Past versions</p>
+      <ol id="us"></ol>
+    </div>
+    <div class="stack redo panel">
+      <h2>Redo stack <span id="rc"></span></h2>
+      <p class="sub">Undone versions</p>
+      <ol id="rs"></ol>
+    </div>
+  </section>
+
+  <section class="notes">
+    <strong>The rules</strong>
+    <ul>
+      <li>Edit: push the current text onto Undo, then empty Redo.</li>
+      <li>Undo: push the current text onto Redo, then pop Undo into the document.</li>
+      <li>Redo: push the current text onto Undo, then pop Redo into the document.</li>
+      <li>Push, pop and peek each take constant time, O(1). Shortcuts: Ctrl/Cmd+Z and Ctrl/Cmd+Y.</li>
+    </ul>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
